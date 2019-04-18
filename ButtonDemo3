@@ -1,0 +1,97 @@
+package edu.vt.cs5044;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/**
+ * This is the three button class. It creates a frame with three buttons.
+ * 
+ * @author sugie
+ * @version 13 Nov 2018
+ */
+public class ButtonDemo3
+    extends JPanel
+    implements ActionListener
+{
+    /**
+     * Declare left button
+     */
+    JButton left;
+    /**
+     * Declare middle button
+     */
+    JButton middle;
+    /**
+     * Declare right button
+     */
+    JButton right;
+
+    /**
+     * Create a new ButtonDemo3 object.
+     */
+    public ButtonDemo3()
+    {
+        left = new JButton("Disable >");
+        left.setActionCommand("disable");
+
+        middle = new JButton("Middle");
+
+        right = new JButton("< Enable");
+        right.setActionCommand("enable");
+        right.setEnabled(false);
+
+        left.addActionListener(this);
+        right.addActionListener(this);
+
+        add(left);
+        add(middle);
+        add(right);
+    }
+
+    private static void createAndShowGUI()
+    {
+        JFrame frame = new JFrame("ButtonDemo3 by Sugie");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JComponent newContentPane = new ButtonDemo3();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if ("disable".equals(e.getActionCommand()))
+        {
+            left.setEnabled(false);
+            middle.setEnabled(false);
+            right.setEnabled(true);
+        }
+        else
+        {
+            left.setEnabled(true);
+            middle.setEnabled(true);
+            right.setEnabled(false);
+        }
+    }
+
+    /**
+     * This method runs the GUI.
+     * 
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                createAndShowGUI();
+            }
+        });
+    }
+}
