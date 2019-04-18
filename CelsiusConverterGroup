@@ -1,0 +1,108 @@
+package edu.vt.cs5044;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+/**
+ * This is the celsius converter class. It converts a number from celsius to fahrenheit.
+ * 
+ * @author mjohn
+ * @version Nov 14, 2018
+ */
+public class CelsiusConverterGroup
+    extends JPanel
+    implements ActionListener
+{
+    private static JButton    convertButton;
+    private static JLabel     celsiusLabel;
+    private static JLabel     fahrenheitLabel;
+    private static JTextField txtField;
+
+
+    /**
+     * Create a new CelsiusConverter object.
+     */
+    public CelsiusConverterGroup()
+    {
+        convertButton = new JButton("Convert");
+        convertButton.addActionListener(this);
+        celsiusLabel = new JLabel("Celsius");
+        fahrenheitLabel = new JLabel("Fahrenheit");
+        txtField = new JTextField(8);
+    }
+
+
+    private static void createAndShowGUI()
+    {
+        JFrame frame = new JFrame("CelsiusConverter by Sugie");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JComponent newContentPane = new CelsiusConverterGroup();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.pack();
+        frame.setVisible(true);
+
+        JPanel panel = new JPanel();
+        GroupLayout group = new GroupLayout(panel);
+        panel.setLayout(group);
+
+        group.setAutoCreateGaps(true);
+        group.setAutoCreateContainerGaps(true);
+
+        group.setHorizontalGroup(
+            group.createSequentialGroup()
+                .addGroup(
+                    group.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(txtField)
+                        .addComponent(convertButton))
+                .addGroup(
+                    group.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(celsiusLabel).addComponent(fahrenheitLabel)));
+
+        group.setVerticalGroup(
+            group.createSequentialGroup()
+                .addGroup(
+                    group.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(txtField)
+                        .addComponent(celsiusLabel))
+                .addGroup(
+                    group.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(convertButton).addComponent(fahrenheitLabel))
+
+        );
+        frame.add(panel);
+    }
+
+
+    /**
+     * This converts celsius to fahrenheit.
+     */
+    @Override
+    public void actionPerformed(ActionEvent arg0)
+    {
+        int tempFahr = (int)((Double.parseDouble(txtField.getText())) * 1.8 + 32);
+        fahrenheitLabel.setText(tempFahr + " Fahrenheit");
+    }
+
+
+    /**
+     * This method runs the GUI.
+     * 
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                createAndShowGUI();
+            }
+        });
+    }
+
+}
