@@ -1,0 +1,111 @@
+package edu.vt.cs5044;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+/**
+ * This is the celsius converter class. It converts a number from celsius to fahrenheit.
+ * 
+ * @author mjohn
+ * @version Nov 14, 2018
+ */
+public class CelsiusConverterGridBag
+    extends JPanel
+    implements ActionListener
+{
+    private static JButton    convertButton;
+    private static JLabel     celsiusLabel;
+    private static JLabel     fahrenheitLabel;
+    private static JTextField txtField;
+
+
+    /**
+     * Create a new CelsiusConverter object.
+     */
+    public CelsiusConverterGridBag()
+    {
+        convertButton = new JButton("Convert");
+        convertButton.addActionListener(this);
+        celsiusLabel = new JLabel("Celsius");
+        fahrenheitLabel = new JLabel("Fahrenheit");
+        txtField = new JTextField(8);
+    }
+
+
+    private static void createAndShowGUI()
+    {
+        JFrame frame = new JFrame("CelsiusConverter by Sugie");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JComponent newContentPane = new CelsiusConverterGridBag();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.pack();
+        frame.setVisible(true);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        // set constraints that will apply to all components
+        gbc.insets = new Insets(5, 10, 5, 10); // separators (top, left, bottom, right)
+        gbc.anchor = GridBagConstraints.LINE_START; // left alignment
+
+        // set grid location (zero-based at top-left)
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        // then just add the field
+        panel.add(txtField, gbc);
+
+        // repeat for each component at other grid locations...
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(convertButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(celsiusLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panel.add(fahrenheitLabel, gbc);
+
+        frame.add(panel);
+    }
+
+
+    /**
+     * This converts celsius to fahrenheit.
+     */
+    @Override
+    public void actionPerformed(ActionEvent arg0)
+    {
+        int tempFahr = (int)((Double.parseDouble(txtField.getText())) * 1.8 + 32);
+        fahrenheitLabel.setText(tempFahr + " Fahrenheit");
+    }
+
+
+    /**
+     * This method runs the GUI.
+     * 
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                createAndShowGUI();
+            }
+        });
+    }
+
+}
