@@ -1,0 +1,67 @@
+package edu.vt.cs5044;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/**
+ * This is a basic button class for displaying a button in a frame. Once you depress the button it
+ * changes text.
+ * 
+ * @author sugie
+ * @version 13 Nov 2018
+ */
+public class ButtonDemo
+    extends JPanel
+    implements ActionListener
+{
+    /**
+     * Declares a button.
+     */
+    JButton button;
+
+    /**
+     * Create a new ButtonDemo object.
+     */
+    public ButtonDemo()
+    {
+        button = new JButton("Click me!");
+        button.addActionListener(this);
+        add(button);
+    }
+
+    private static void createAndShowGUI()
+    {
+        JFrame frame = new JFrame("ButtonDemo by Sugie");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JComponent newContentPane = new ButtonDemo();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        button.setText("Ouch!");
+    }
+
+    /**
+     * This method runs the GUI.
+     * 
+     * @param args
+     *            is the new String text.
+     */
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                createAndShowGUI();
+            }
+        });
+    }
+}
