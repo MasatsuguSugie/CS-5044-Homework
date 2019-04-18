@@ -1,0 +1,85 @@
+package edu.vt.cs5044;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+/**
+ * This is the celsius converter class. It converts a number from celsius to fahrenheit.
+ * 
+ * @author mjohn
+ * @version Nov 14, 2018
+ */
+public class CelsiusConverterGrid
+    extends JPanel
+    implements ActionListener
+{
+    private static JButton    convertButton;
+    private static JLabel     celsiusLabel;
+    private static JLabel     fahrenheitLabel;
+    private static JTextField txtField;
+
+    /**
+     * Create a new CelsiusConverter object.
+     */
+    public CelsiusConverterGrid()
+    {
+        convertButton = new JButton("Convert");
+        convertButton.addActionListener(this);
+        celsiusLabel = new JLabel("Celsius");
+        fahrenheitLabel = new JLabel("Fahrenheit");
+        txtField = new JTextField(8);
+    }
+
+    private static void createAndShowGUI()
+    {
+        JFrame frame = new JFrame("CelsiusConverter by Sugie");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JComponent newContentPane = new CelsiusConverterGrid();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.pack();
+        frame.setVisible(true);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 2, 20, 10));
+        panel.add(txtField);
+        panel.add(celsiusLabel);
+        panel.add(convertButton);
+        panel.add(fahrenheitLabel);
+
+        frame.add(panel);
+    }
+
+    /**
+     * This converts celsius to fahrenheit.
+     */
+    @Override
+    public void actionPerformed(ActionEvent arg0)
+    {
+        int tempFahr = (int)((Double.parseDouble(txtField.getText())) * 1.8 + 32);
+        fahrenheitLabel.setText(tempFahr + " Fahrenheit");
+    }
+
+    /**
+     * This method runs the GUI.
+     * 
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                createAndShowGUI();
+            }
+        });
+    }
+
+}
