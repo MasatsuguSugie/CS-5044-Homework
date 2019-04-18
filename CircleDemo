@@ -1,0 +1,107 @@
+package edu.vt.cs5044;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+/**
+ * This is my circle demo class. It displays a circle on frame that moves on your click and resets
+ * to center with the space bar.
+ * 
+ * @author sugie
+ * @version 15 Nov 2018
+ */
+public class CircleDemo
+    extends JPanel
+    implements MouseListener
+{
+    /**
+     * Declare an interger x equaling 200.
+     */
+    private int            x    = 200;
+    /**
+     * Declare an interger y equaling 200.
+     */
+    private int            y    = 200;
+    /**
+     * Declare a String with text.
+     */
+    private String         text = "(200, 200)";
+
+    private AbstractAction spaceAction;
+
+    /**
+     * Create a new CircleDemo object.
+     */
+    public CircleDemo(){
+        addMouseListener(this);
+        spaceAction = new AbstractAction(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                x = 200;
+                y = 200;
+                text = "(200, 200)";
+                repaint();
+            }
+        };
+        getInputMap().put(KeyStroke.getKeyStroke(' '), "doSpaceAction");
+        getActionMap().put("doSpaceAction", spaceAction);
+    }
+    @Override
+    public void paintComponent(Graphics g){
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.setColor(Color.BLUE);
+        g.fillOval(x - 50, y - 50, 100, 100);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Verdana", Font.BOLD, 24));
+        g.drawString(text, 125, 50);
+    }
+    public void mousePressed(MouseEvent e){ //
+    }
+    public void mouseReleased(MouseEvent e){ //
+    }    
+    public void mouseEntered(MouseEvent e){ //
+    }
+    public void mouseExited(MouseEvent e){ //
+    }
+    public void mouseClicked(MouseEvent e){
+        x = e.getX();
+        y = e.getY();
+        text = "(" + x + "," + y + ")";
+        repaint();
+    }
+    private static void createAndShowGUI()
+    {
+        JFrame frame = new JFrame("CircleDemo by Sugie");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JComponent newContentPane = new CircleDemo();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.setSize(400, 400);
+        frame.setVisible(true);
+    }
+
+    /**
+     * This method runs the GUI.
+     * 
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run()
+            {
+                createAndShowGUI();
+            }
+        });
+    }
+}
